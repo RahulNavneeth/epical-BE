@@ -1,0 +1,29 @@
+GUIDELINES :
+
+Candidates are instructed to go through and follow the given guidelines before commencing the test.
+
+1.) This test consist of <<50>> Choice-based questions for which each question is guarenteed to be having one of the options among the four given choices as answers.
+
+2.) The duration of test is <<1 hour 30 minutes>> and you can find it on bottom-right of the screen. 
+
+3.) The test starts once you click on 'Start Test' button. There is no time limit set for individual question.
+
+4.) It is to be noted that neither the test can be paused nor the application can be closed once the candidate starts the test.
+
+5.) Candidate can navigate to previous and next question using appropriate buttons that appear on the bottom-left of the screen.
+
+6.) Question navigation panel present on the right side of the screen can also be utilized for viewing the question ans its status.
+
+7.) Candidates are advised to make use of question navigation panel to identify attended and unattended questions.
+
+8.) Answer can be reviewed and changed for any question at any point of the test.
+
+9.) The test can be concluded by the candidate at any course of time by pressing 'Submit' button which can be found at last page.
+
+10.) Candidate has to click on 'Confirm' button on the pop-up displayed to ensure the submition of the test.
+
+11.) The answer cannot be reviewed or modified after the submition of the test.
+
+12.) Candidates are advised to complete test within the stipulated time. The test will be auto-submited once the time alloted has been elasped.
+
+13.) Candidates should not attempt any malpractices such as closing or terminating the app window or  navigating out of the app, faling which leads to termination of test.

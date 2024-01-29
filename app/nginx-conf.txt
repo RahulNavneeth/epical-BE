@@ -1,0 +1,17 @@
+http {
+    upstream epical {
+        server localhost:1212;
+        server localhost:1313;
+        server localhost:1414;
+        server localhost:1515;
+    }
+    server {
+        listen 80;
+        root /Users/rahulnavneeth/projects/epical/server;
+        location / {
+          proxy_pass http://epical;
+        }
+    }
+}
+
+events { }
