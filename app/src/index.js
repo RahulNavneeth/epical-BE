@@ -38,19 +38,18 @@ app.use(bodyParser.json(), cors());
 
 app.post('/login', (req, res) => {
     const { candidateName, regNo, password } = req.body;
-    if (worksheet) {
-        const data = XLSX.utils.sheet_to_json(worksheet);
-        if (data.length > 0) {
-            const candidate = data.find(
-                (candidate) =>
-                    `${candidate['Candidate Name']}` === `${candidateName}` &&
-                    `${candidate['Reg No']}` === `${regNo}`
-            );
-            if (candidate) {
-                return res.send({ success: false, message: 'You have already taken the test' });
-            }
+    const data = XLSX.utils.sheet_to_json(worksheet);
+    if (data.length > 0) {
+        const candidate = data.find(
+            (candidate) =>
+                `${candidate['Candidate Name']}` === `${candidateName}` &&
+                `${candidate['Reg No']}` === `${regNo}`
+        );
+        if (candidate) {
+            return res.send({ success: false, message: 'You have already taken the test' });
         }
     }
+
     candidateWorkbook = XLSX.readFile(CANDIDATE_FILE_PATH);
     candidateWorksheet = candidateWorkbook.Sheets[candidateWorkbook.SheetNames[0]];
     const candidateData = XLSX.utils.sheet_to_json(candidateWorksheet);
@@ -83,10 +82,10 @@ app.get('/get-metadata', (_, res) => {
 app.post('/save-mark', (req, res) => {
     const { candidateName, regNo } = req.body;
     let mark = 0;
-    const answer = req.body["answer"].sort((a, b) => a[0] - b[0]);
-    for (let i = 0; i < problemSetData.length; i++) {
-        const problem = problemSetData[i];
-        if (!answer[i]) continue;
+    const A = req.body["answer"].filter((answer) => answer !== null);
+    const answer = A.sort((a, b) => a[0] - b[0]);
+    for (let i = 0; i < A.length; i++) {
+        const problem = problemSetData[A[i][0] - 1];
         if (parseInt(problem['Answer']) === parseInt(answer[i][1])) {
             mark++;
         }
