@@ -43,8 +43,8 @@ app.post('/login', (req, res) => {
         if (data.length > 0) {
             const candidate = data.find(
                 (candidate) =>
-                    candidate['Candidate Name'] === candidateName &&
-                    candidate['Reg No'] === regNo
+                    `${candidate['Candidate Name']}` === `${candidateName}` &&
+                    `${candidate['Reg No']}` === `${regNo}`
             );
             if (candidate) {
                 return res.send({ success: false, message: 'You have already taken the test' });
@@ -57,9 +57,9 @@ app.post('/login', (req, res) => {
     if (candidateData.length > 0) {
         const candidate = candidateData.find(
             (candidate) =>
-                candidate['Candidate Name'] === candidateName &&
-                candidate['Reg No'] === regNo &&
-                candidate['Password'] === password
+                `${candidate['Candidate Name']}` === `${candidateName}` &&
+                `${candidate['Reg No']}` === `${regNo}` &&
+                `${candidate['Password']}` === `${password}`
         );
         if (!candidate) {
             return res.send({ success: false, message: 'Invalid credentials' });
@@ -69,7 +69,7 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/', (_, res) => {
-    res.send('EPICAL LAYOUT ON PORT: ' + PORT);
+    res.send({ success: true, message: 'EPICAL LAYOUT ON PORT: ' + PORT });
 })
 
 app.get('/get-metadata', (_, res) => {

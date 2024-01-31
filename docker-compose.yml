@@ -8,6 +8,10 @@ services:
     volumes:
       - ./app:/usr/src/app
       - /usr/src/app/node_modules
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   nginx:
     build:
