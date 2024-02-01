@@ -38,6 +38,10 @@ app.use(bodyParser.json(), cors());
 
 app.post('/login', (req, res) => {
     const { candidateName, regNo, password } = req.body;
+    if (fs.existsSync(FILE_PATH)) {
+        workbook = XLSX.readFile(FILE_PATH);
+        worksheet = workbook.Sheets[workbook.SheetNames[0]];
+    }
     const data = XLSX.utils.sheet_to_json(worksheet);
     if (data.length > 0) {
         const candidate = data.find(
