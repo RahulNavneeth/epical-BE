@@ -33,6 +33,25 @@ if (fs.existsSync(FILE_PATH)) {
     ]);
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet 1');
 }
+class Queue {
+    constructor() {
+        this.tasks = [];
+    }
+
+    addTask(task) {
+        this.tasks.push(task);
+    }
+
+    getNextTask() {
+        return this.tasks.shift();
+    }
+
+    get isEmpty() {
+        return this.tasks.length === 0;
+    }
+}
+
+const markSavingQueue = new Queue();
 
 app.use(bodyParser.json(), cors());
 
@@ -83,7 +102,24 @@ app.get('/get-metadata', (_, res) => {
     res.send({ success: true, message: "Meta data fetched successfully", data: { ...(metaData[0]), terms } });
 })
 
+
 app.post('/save-mark', (req, res) => {
+    markSavingQueue.addTask(req);
+    res.send({ success: true, message: 'Your submission has been queued for processing' });
+});
+
+
+async function processQueue() {
+    // let count = 0;
+    while (!markSavingQueue.isEmpty) {
+        const task = markSavingQueue.getNextTask();
+        await saveMark(task);
+        // console.log(`Processing task - ${count}`, task.body);
+    }
+    setTimeout(processQueue, 1000);
+}
+
+const saveMark = async (req) => {
     const { candidateName, regNo } = req.body;
     let mark = 0;
     const A = req.body["answer"].filter((answer) => answer !== null);
@@ -102,8 +138,9 @@ app.post('/save-mark', (req, res) => {
     workbook.Sheets[workbook.SheetNames[0]] = worksheet;
     XLSX.writeFile(workbook, FILE_PATH);
 
-    res.send({ success: true, message: 'Saved successfully' });
-});
+}
+
+processQueue();
 
 app.get('/get-problems', (_, res) => {
     const data = problemSetData.map((problem) => {
